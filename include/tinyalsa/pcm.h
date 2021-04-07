@@ -178,6 +178,10 @@ enum pcm_format {
     PCM_FORMAT_S24_3BE,
     /** Signed, 32-bit, big endian */
     PCM_FORMAT_S32_BE,
+    /** 32-bit float, little endian */
+    PCM_FORMAT_FLOAT_LE,
+    /** 32-bit float, big endian */
+    PCM_FORMAT_FLOAT_BE,
     /** Max of the enumeration list, not an actual format. */
     PCM_FORMAT_MAX
 };
@@ -335,9 +339,9 @@ int pcm_write(struct pcm *pcm, const void *data, unsigned int count) TINYALSA_DE
 
 int pcm_read(struct pcm *pcm, void *data, unsigned int count) TINYALSA_DEPRECATED;
 
-int pcm_mmap_write(struct pcm *pcm, const void *data, unsigned int count);
+int pcm_mmap_write(struct pcm *pcm, const void *data, unsigned int count) TINYALSA_DEPRECATED;
 
-int pcm_mmap_read(struct pcm *pcm, void *data, unsigned int count);
+int pcm_mmap_read(struct pcm *pcm, void *data, unsigned int count) TINYALSA_DEPRECATED;
 
 int pcm_mmap_begin(struct pcm *pcm, void **areas, unsigned int *offset, unsigned int *frames);
 
