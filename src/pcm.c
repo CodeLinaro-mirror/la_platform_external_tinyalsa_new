@@ -1092,8 +1092,10 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
     }
     pcm->subdevice = info.subdevice;
 
-    if (pcm_set_config(pcm, config) != 0)
+    if (pcm_set_config(pcm, config) != 0) {
+        memcpy(bad_pcm.error, pcm->error, sizeof(pcm->error));
         goto fail_close;
+    }
 
     rc = pcm_hw_mmap_status(pcm);
     if (rc < 0) {
@@ -1212,6 +1214,22 @@ int pcm_start(struct pcm *pcm)
         if (pcm->ops->ioctl(pcm->data, SNDRV_PCM_IOCTL_START) < 0)
             return oops(pcm, errno, "cannot start channel");
     }
+
+    return 0;
+}
+
+/** Drains a PCM.
+ * @param pcm A PCM handle.
+ * @return On success, zero; on failure, a negative number.
+ * @ingroup libtinyalsa-pcm
+ */
+int pcm_drain(struct pcm *pcm)
+{
+    if (!pcm_is_ready(pcm))
+        return -1;
+
+    if (pcm->ops->ioctl(pcm->data, SNDRV_PCM_IOCTL_DRAIN) < 0)
+        return oops(pcm, errno, "cannot drain channel");
 
     return 0;
 }
