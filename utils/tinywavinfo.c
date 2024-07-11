@@ -26,6 +26,11 @@
 ** DAMAGE.
 */
 
+// Changes from Qualcomm Innovation Center, Inc. are provided under the following license:
+//
+// Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+// SPDX-License-Identifier: BSD-3-Clause-Clear
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -149,7 +154,7 @@ void analyse_sample(FILE *file, unsigned int channels, unsigned int bits,
     void *buffer;
     int size;
     int num_read;
-    int i;
+    unsigned int i;
     unsigned int ch;
     int frame_size = 1024;
     unsigned int bytes_per_sample = 0;

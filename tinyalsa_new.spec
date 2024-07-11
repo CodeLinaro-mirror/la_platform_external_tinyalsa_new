@@ -4,8 +4,9 @@ Version: 1.0
 Release: r0
 License: BSD-3-Clause
 URL: https://github.com/tinyalsa/tinyalsa
-Source0:	 %{name}-%{version}.tar.gz
-BuildRequires:	cmake libtool gcc-g++ systemd-rpm-macros libcutils
+Source0: %{name}-%{version}.tar.gz
+
+BuildRequires: cmake libtool gcc-g++ systemd-rpm-macros libcutils
 Requires: libcutils, libtool
 
 
@@ -28,10 +29,7 @@ software development.
 %global __os_install_post %{nil}
 
 %prep
-%autosetup -n tinyalsa_new
-%patch0 patches/0001-Call-pcm_start-for-capture-case-in-NON-MMAP-mode.patch
-%patch1 patches/0001-Enable-TinyAlsa-plugin-support.patch
-%patch2 patches/0001-tinyalsa-Fix-interger-comparison-warning.patch
+%autosetup -n %{name}-%{version}
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_FILE -DCMAKE_RULE_MESSAGES:BOOL=OFF -DCMAKE_VERBOSE_MAKEFILE:BOOL=$VER -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DCMAKE_INSTALL_BINDIR=%{_bindir} -DCMAKE_INSTALL_LICENSEDIR=%{_defaultlicensedir}
